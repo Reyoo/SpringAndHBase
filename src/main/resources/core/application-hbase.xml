@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+
+	<!-- <context:property-placeholder location="classpath:base-info.properties" 
+		/> 配置hadoop的基本信息 <hdp:configuration> fs.defaultFS="${fs.defaultFS}" dfs.replication=3 
+		dfs.client.socket-timeout=600000 </hdp:configuration> 配置zookeeper 端口和地址 <hdp:hbase-configuration 
+		id="hbaseConfiguration" configuration-ref="hadoopConfiguration" zk-quorum="${zk.quorum}" 
+		zk-port="${zk.port}"> <hdp:hbase-configuration zk-quorum="${zk.quorum}" zk-port="${zk.port}"> 
+		hbase.rootdir="${hd.fs}" hbase.cluster.distributed=true zookeeper.session.timout=30000 
+		hbase.hregion.majorcompaction=0 hbase.regionserver.regionSplitLimit=1 dfs.client.socket-timeout=600000 
+		</hdp:hbase-configuration> 配置HbaseTemplate <bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate"> 
+		<property name="configuration" ref="hbaseConfiguration" /> <property name="encoding" 
+		value="UTF-8" /> </bean> -->
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.hbase_spring.service.impl" />
+	<hdp:configuration resources="hbase-site.xml" />
+	<hdp:hbase-configuration configuration-ref="hadoopConfiguration" />
+	<bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate">
+		<property name="configuration" ref="hbaseConfiguration" />
+	</bean>
+
+</beans>
